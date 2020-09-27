@@ -1,0 +1,149 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block head %}
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock head %}
+
+{% block cssaf %}
+<style>
+	.pageHeading{
+		display: inline-block;
+		margin-top: 2%;
+		padding: 0% 2%;
+		font-size: 2.5rem;
+		font-weight: bolder;
+		font-family: 'Patrick Hand SC', cursive;
+		color: black;
+		text-shadow: 0px 0px 10px #ffffff;
+	}
+	.pageData{
+		padding: 5%;
+		text-align: center;
+	}
+
+	.pageIcon{
+		width: 100%;
+		padding: 15% 15% 0px 15%;
+		transition: padding 0.2s;
+	}
+
+	.pageIcon:hover{
+		padding: 5% 5% 0px 5%;
+	}
+
+	.pageIconName{
+		padding: 0px 2% 0px 2%;
+		margin: 0px;
+		word-break: break-all;
+		transition: 0.19s;
+		font-weight: 600;
+	}
+	.underlined {
+		color: black;
+		flex: 1;
+		line-height: 1.2;
+		text-decoration: none;
+		background-image: linear-gradient(to right, black 0, black 100%);
+		background-position: 0 1.2em;
+		background-size: 0 100%;
+		background-repeat: no-repeat;
+		transition: background .3s, color .1s;
+		background-position: 0 -0.001em;
+	}
+
+	/*replace D with d to highlight text when text is hovered*/
+	.ununderlined, .underlineD:hover{
+		background-size: 100% 100%;
+		color: yellow;
+	}
+
+	.noDataEmoji{
+		font-size: 5rem;
+		padding: 1%;
+		margin-top: 3%;
+		display: inline-block;
+		font-weight: bolder;
+		color: blue;
+	}
+
+	.noDataText{
+		font-size: 2rem;
+		padding: 0.5%;
+		}
+
+	/*Add imageColor<1-7> for color change and any other color for original image*/
+	.imageColor1{
+		filter: saturate(10);
+	}
+
+	.imageColor2{
+		filter: brightness(0.75) contrast(1.5);
+	}
+
+	.imageColor3{
+		filter: invert(100%);
+	}
+
+	.imageColor4{
+		filter: grayscale(100%);
+	}
+
+	.imageColor5{
+		filter: hue-rotate(90deg);
+	}
+
+	.imageColor6{
+		filter: hue-rotate(180deg);
+	}
+
+	.imageColor7{
+		filter: hue-rotate(270deg);
+	}
+</style>
+{% endblock cssaf %}
+
+{% block body %}
+<div align="center">
+	<h id='pageHeading' class="pageHeading z-depth-1" align='center'>Server</h><br>
+</div>
+{% if data %}
+<div class="pageData">
+	{% for row in files %}
+	<div class="row">
+		{% for file in row %}
+		<div class="col s2">
+			<a href="{{file.relativeUrl}}">
+				<img src="{% static icon %}" class="pageIcon {{file.class}}" onmouseover="hoverText(this)" onmouseleave="hoverOver(this)">
+				<h class='pageIconName underlined'>{{file.fileName}}</h>
+			</a>
+		</div>
+		{% endfor %}
+	</div>
+	{% endfor %}
+</div>
+{% else %}
+<br>
+<div class="noData" align="center">
+	<h class='noDataEmoji z-depth-1'>¯\_(ツ)_/¯</h><br><br><br>
+	<h class='noDataText z-depth-1'>No Data Found</h><br><br><br><br>
+	<a class="waves-effect waves-light btn-large" style="background-color: black" href="/"><i class="material-icons left">home</i>HOME</a>
+</div>
+{% endif %}
+{% endblock body %}
+
+{% block jsaf %}
+<script>
+	function initiatePageBasic(){
+		$("#pageHeading").html(pageTitle+' : {{ type|title }}');
+	}
+	function hoverText(ele){
+		var text = ele.parentElement.children[1];
+		text.classList.add('ununderlined');
+	}
+	function hoverOver(ele){
+		var text = ele.parentElement.children[1];
+		text.classList.remove('ununderlined');
+	}
+</script>
+{% endblock jsaf %}

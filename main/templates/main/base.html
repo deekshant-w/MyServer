@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Jquery CDN -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<!-- thick -->
+	<link href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap" rel="stylesheet">
+	<!-- thin -->
+	<link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+	<!-- favicon -->
+	<link rel="icon" href="{% static 'favicon.png' %}" sizes="16x16">
+	{% block head %}
+	{% endblock head %}
+</head>
+
+{% block cssb4 %}
+{% endblock cssb4 %}
+
+<style>
+	body{
+		background: #1cd8d2; /* fallback for old browsers */
+  		background: -webkit-linear-gradient(to right, #1cd8d2, #93edc7); /* Chrome 10-25, Safari 5.1-6 */
+  		background: linear-gradient(to right, #1cd8d2, #93edc7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	}
+	nav{
+		background-color: rgba(0,0,0,0.2);
+	}
+	.logo{
+		padding-left: 10%;
+		display: inline-block;
+		font-family: 'Schoolbell', cursive;
+		/*font-family: 'Handlee', cursive;*/
+	}
+
+	::-webkit-scrollbar {
+	  	width: 5px;
+	}
+
+	::-webkit-scrollbar-track {
+	  	background: #90edc8;
+	}
+
+	::-webkit-scrollbar-thumb {
+	  	background: black;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+	  	background: #8a8a8a;
+	}
+</style>
+
+{% block cssaf %}
+{% endblock cssaf %}
+
+<body>
+	<nav>
+		<div class="nav-wrapper">
+			<a href="/" class="brand-logo"><h class='logo'>MyServer</h></a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<li><a href="/">Home</a></li>
+				<li><a href="preview?f=pdf">PDF's</a></li>
+				<li><a href="preview?f=video">Video</a></li>
+				<li><a href="preview?f=audio">Audio</a></li>
+				<li><a href="preview?f=other">Other</a></li>
+			</ul>
+		</div>
+	</nav>
+	{% block body %}
+	{% endblock body %}
+</body>
+
+{% block jsb4 %}
+{% endblock jsb4 %}
+
+<script>
+	var pageTitle = '';
+	$(document).ready(function(){
+		$.get(
+				'/basicFlow',
+				function(data){
+					console.log(data)
+					document.title = data['projectName'];
+					pageTitle = data['projectName'];
+					try{
+						initiatePageBasic();
+					}catch{};
+				}
+			)
+	});
+</script>
+
+{% block jsaf %}
+{% endblock jsaf %}
+
+</html>

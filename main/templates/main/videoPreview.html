@@ -1,0 +1,84 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block head %}
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock head %}
+
+{% block cssaf %}
+<style>
+	.pageHeading{
+		display: inline-block;
+		margin-top: 2%;
+		padding: 0% 2%;
+		font-size: 2rem;
+		font-weight: bolder;
+		font-family: 'Patrick Hand SC', cursive;
+		color: black;
+		text-shadow: 0px 0px 10px #ffffff;
+	}
+
+	.fileName{
+		display: inline-block;
+		padding: 0% 2%;
+		font-size: 2rem;
+		font-weight: bolder;
+		font-family: 'Patrick Hand SC', cursive;
+		color: black;
+		text-shadow: 0px 0px 10px #ffffff;
+	}
+
+	.noDataEmoji{
+		font-size: 5rem;
+		padding: 1%;
+		margin-top: 3%;
+		display: inline-block;
+		font-weight: bolder;
+		color: blue;
+	}
+
+	.noDataText{
+		font-size: 2rem;
+		padding: 0.5%;
+	}
+
+	.vid{
+		text-align: center;
+		margin-left: auto;
+    	margin-right: auto;
+    	display: block;
+    	max-width: 40%;
+    	min-height: 60%;
+	}
+
+</style>
+{% endblock cssaf %}
+
+{% block body %}
+<div align="center">
+	<h id='pageHeading' class="pageHeading z-depth-1" align='center'>Server</h><br>
+</div><br>
+<div align="center">
+	<h class="fileName z-depth-1" align='center'>{{fileName}}</h><br>
+</div><br><br>
+<div align="center">
+	<video src="/static/{{fileName}}" controls class="vid"></video><br><br>
+	<a class="waves-effect waves-light btn black" href="/static/{{fileName}}"><i class="material-icons left">file_download</i>Download</a>
+</div>
+{% endblock body %}
+
+{% block jsaf %}
+<script>
+	function initiatePageBasic(){
+		$("#pageHeading").html(pageTitle+' : Video');
+	}
+	function hoverText(ele){
+		var text = ele.parentElement.children[1];
+		text.classList.add('ununderlined');
+	}
+	function hoverOver(ele){
+		var text = ele.parentElement.children[1];
+		text.classList.remove('ununderlined');
+	}
+</script>
+{% endblock jsaf %}
